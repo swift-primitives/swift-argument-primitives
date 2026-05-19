@@ -92,12 +92,12 @@ extension Operation {
                 // type-checks here is the structural-refinement guarantee.
                 func total<E: Finite.Enumerable>(_: E.Type) -> Cardinal {
                     E.allCases.reduce(Cardinal.zero) { partial, value in
-                        partial + Cardinal(value.ordinal.rawValue)
+                        partial + Ordinal.zero.distance.unchecked(to: value.ordinal)
                     }
                 }
 
                 // For Operation: 0 + 1 == 1
-                #expect(total(Operation.self) == Cardinal(1))
+                #expect(total(Operation.self) == Cardinal.one)
             }
         }
     }

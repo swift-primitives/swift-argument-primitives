@@ -83,7 +83,7 @@ extension Argument.Name.Short {
     /// - Returns: The validated short option name.
     @inlinable
     public static func literal(_ name: Character) -> Argument.Name.Short {
-        do {
+        do throws(Argument.Name.Short.Error) {
             return try Argument.Name.Short(name)
         } catch {
             preconditionFailure(

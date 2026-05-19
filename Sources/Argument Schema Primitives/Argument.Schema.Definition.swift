@@ -61,21 +61,34 @@ extension Argument.Schema {
         public init(nodes: [any Argument.Schema.Node]) {
             self.nodes = nodes
         }
+    }
+}
 
-        /// Walks every node in declaration order, dispatching each to
-        /// the visitor's typed `visit(...)` method via `Node.accept(_:)`.
-        ///
-        /// This is the single entry point that help / completion /
-        /// manpage / parse-dispatch visitors share. Per §2.2's
-        /// bidirectionality, the same definition instance drives both
-        /// directions (parse and emit).
-        @inlinable
-        public func accept<Visitor: Argument.Schema.Visitor>(
-            _ visitor: inout Visitor
-        ) throws(Visitor.Failure) {
-            for node in nodes {
-                try node.accept(&visitor)
-            }
+extension Argument.Schema.Definition {
+    /// Walks every node in declaration order, dispatching each to
+    /// the visitor's typed `visit(...)` method via `Node.accept(_:)`.
+    ///
+    /// This is the single entry point that help / completion /
+    /// manpage / parse-dispatch visitors share. Per §2.2's
+    /// bidirectionality, the same definition instance drives both
+    /// directions (parse and emit).
+    @inlinable
+    public func accept<Visitor: Argument.Schema.Visitor>(
+        _ visitor: inout Visitor
+    ) throws(Visitor.Failure) {
+        for node in nodes {
+            try node.accept(&visitor)
+        }
+    }
+
+    /// Non-throwing specialization for visitors that cannot fail.
+    /// Duplicate body per [IMPL-042] — forwarding does not specialize.
+    @inlinable
+    public func accept<Visitor: Argument.Schema.Visitor>(
+        _ visitor: inout Visitor
+    ) where Visitor.Failure == Never {
+        for node in nodes {
+            node.accept(&visitor)
         }
     }
 }

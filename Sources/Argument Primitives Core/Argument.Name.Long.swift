@@ -99,7 +99,7 @@ extension Argument.Name.Long {
     @inlinable
     public static func literal(_ name: StaticString) -> Argument.Name.Long {
         let string = "\(name)"
-        do {
+        do throws(Argument.Name.Long.Error) {
             return try Argument.Name.Long(string)
         } catch {
             preconditionFailure(
