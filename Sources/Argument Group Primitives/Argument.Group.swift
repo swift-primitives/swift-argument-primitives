@@ -34,14 +34,14 @@ extension Argument {
     /// }
     ///
     /// Argument.Group<Network>(
-    ///     valueName: "network",
+    ///     name: "network",
     ///     visibility: .visible,
     ///     help: .init(abstract: "Network configuration.")
     /// )
     /// ```
     public struct Group<G: Sendable>: Sendable {
         /// The schema-side identifier (used in diagnostics).
-        public let valueName: String
+        public let name: String
         /// Whether this group's heading appears in help text.
         public let visibility: Argument.Visibility
         /// Documentation for this group.
@@ -50,16 +50,16 @@ extension Argument {
         /// Creates a group declaration.
         ///
         /// - Parameters:
-        ///   - valueName: The schema-side identifier.
+        ///   - name: The schema-side identifier.
         ///   - visibility: Whether this group appears in help text. Defaults to `.visible`.
         ///   - help: Documentation. Defaults to empty.
         @inlinable
         public init(
-            valueName: String,
+            name: String,
             visibility: Argument.Visibility = .visible,
             help: Argument.Help = .init()
         ) {
-            self.valueName = valueName
+            self.name = name
             self.visibility = visibility
             self.help = help
         }

@@ -43,7 +43,7 @@ extension Argument.Schema.Definition<Root> {
                     Argument.Positional<String>(name: "p", valueName: "p"),
                     Argument.Option<Int>(name: .long(try .init("o")), valueName: "o"),
                     Argument.Flag(name: .long(try .init("f"))),
-                    Argument.Group<Root>(valueName: "g"),
+                    Argument.Group<Root>(name: "g"),
                     Argument.Subcommand<Root>(name: "s"),
                 ]
                 let definition = Argument.Schema.Definition<Root>(nodes: nodes)
