@@ -22,9 +22,9 @@ extension Argument {
     /// - `abstract` — one-line summary (required at the call site, but
     ///   `""` is permitted).
     /// - `discussion` — multi-paragraph extended description.
-    /// - `valueDescription` — placeholder in usage lines (e.g.,
+    /// - `placeholder` — placeholder in usage lines (e.g.,
     ///   `<count>` for `--count <count>`).
-    /// - `defaultDescription` — rendered representation of the default
+    /// - `defaults` — rendered representation of the default
     ///   value, if any. When `nil`, the schema may emit a default
     ///   computed from the value via `String(describing:)`.
     public struct Help: Sendable, Hashable, Equatable {
@@ -33,22 +33,22 @@ extension Argument {
         /// Multi-paragraph extended description.
         public let discussion: String
         /// Placeholder rendering for value-bearing arguments.
-        public let valueDescription: String?
+        public let placeholder: String?
         /// Rendered representation of the default value, if any.
-        public let defaultDescription: String?
+        public let defaults: String?
 
         /// Creates a `Help` descriptor.
         @inlinable
         public init(
             abstract: String = "",
             discussion: String = "",
-            valueDescription: String? = nil,
-            defaultDescription: String? = nil
+            placeholder: String? = nil,
+            defaults: String? = nil
         ) {
             self.abstract = abstract
             self.discussion = discussion
-            self.valueDescription = valueDescription
-            self.defaultDescription = defaultDescription
+            self.placeholder = placeholder
+            self.defaults = defaults
         }
     }
 }

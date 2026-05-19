@@ -30,14 +30,14 @@ enum Repeat {}   // Root type — fields populated by the parser at L3
 let nodes: [any Argument.Schema.Node] = [
     Argument.Positional<String>(
         name: "phrase",
-        valueName: "phrase",
+        placeholder: "phrase",
         arity: .exactly(1),
         help: .init(abstract: "The phrase to repeat.")
     ),
     Argument.Option<Int>(
         name: .both(short: try .init("c"), long: try .init("count")),
-        valueName: "count",
-        help: .init(abstract: "Number of repetitions.", defaultDescription: "2")
+        placeholder: "count",
+        help: .init(abstract: "Number of repetitions.", defaults: "2")
     ),
     Argument.Flag(
         name: .long(try .init("include-counter")),
@@ -63,13 +63,13 @@ struct Summary: Argument.Schema.Visitor {
         lines.append("positional \(positional.name)")
     }
     mutating func visit<V: Sendable & Equatable>(option: Argument.Option<V>) {
-        lines.append("option \(option.valueName)")
+        lines.append("option \(option.placeholder)")
     }
     mutating func visit(flag: Argument.Flag) {
         lines.append("flag")
     }
     mutating func visit<G: Sendable>(group: Argument.Group<G>) {
-        lines.append("group \(group.valueName)")
+        lines.append("group \(group.placeholder)")
     }
     mutating func visit<S: Sendable>(subcommand: Argument.Subcommand<S>) {
         lines.append("subcommand \(subcommand.name)")
@@ -115,7 +115,7 @@ let verbosity: Argument.Environment.Variable.Name = "MYAPP_VERBOSITY"
 
 let option = Argument.Option<Int>(
     name: .both(short: try .init("v"), long: try .init("verbosity")),
-    valueName: "n",
+    placeholder: "n",
     help: .init(abstract: "Verbosity level."),
     environmentVariable: verbosity
 )
@@ -175,7 +175,7 @@ Argument
 │   └── Long                  — validated [a-zA-Z][a-zA-Z0-9-]* (GNU long-options)
 ├── Arity                     — exactly | atMost | atLeast | range | count
 ├── Visibility                — visible | hidden
-├── Help                      — abstract / discussion / valueDescription / defaultDescription
+├── Help                      — abstract / discussion / placeholder / defaults
 ├── Token                     — argv-derived token
 │   └── Kind                  — long | shortCluster | value | separator | positional | endOfOptions
 ├── Error                     — typed parse-time errors keyed to Argument.Position

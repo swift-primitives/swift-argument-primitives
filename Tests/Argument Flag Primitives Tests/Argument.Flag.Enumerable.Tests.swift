@@ -21,9 +21,7 @@ fileprivate enum Operation: Argument.Flag.Enumerable {
 }
 
 extension Operation {
-    // swift-linter:disable:next compound identifier
-    // REASON: Witness for `Argument.Flag.Enumerable.flagName(for:)` — protocol requirement; conformer is forced to use the exact protocol-side name.
-    static func flagName(for value: Self) -> Argument.Name.Long {
+    static func name(for value: Self) -> Argument.Name.Long {
         switch value {
         case .add: return .literal("add")
         case .multiply: return .literal("multiply")
@@ -47,9 +45,9 @@ extension Operation {
                 #expect(all == [.add, .multiply])
             }
 
-            @Test func `flagName(for:) returns the registered long name`() {
-                #expect(Operation.flagName(for: .add).string == "add")
-                #expect(Operation.flagName(for: .multiply).string == "multiply")
+            @Test func `name(for:) returns the registered long name`() {
+                #expect(Operation.name(for: .add).string == "add")
+                #expect(Operation.name(for: .multiply).string == "multiply")
             }
 
             @Test func `help(for:) carries the per-case abstract`() {
@@ -57,8 +55,8 @@ extension Operation {
                 #expect(Operation.help(for: .multiply).abstract == "Multiply operands.")
             }
 
-            @Test func `each case maps to a distinct flagName — schema-builder invariant`() {
-                let names = Operation.allCases.map { Operation.flagName(for: $0).string }
+            @Test func `each case maps to a distinct name — schema-builder invariant`() {
+                let names = Operation.allCases.map { Operation.name(for: $0).string }
                 #expect(Set(names).count == names.count)
             }
 

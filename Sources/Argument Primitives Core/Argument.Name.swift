@@ -65,71 +65,8 @@ extension Argument.Name {
     }
 }
 
-// MARK: - Literal-name factories
-
-extension Argument.Name {
-    /// Constructs a `.long(_)` name from a known-good literal, trapping
-    /// on validation failure.
-    ///
-    /// Production-site companion enabling declarative schema bodies free
-    /// of `try` for literal option-name construction:
-    ///
-    /// ```swift
-    /// Command.Option(\.count, name: .longLiteral("count"))
-    /// ```
-    ///
-    /// Equivalent to `.long(.literal(name))` — the convenience factory
-    /// hoists the dotted form to top-level on `Argument.Name`.
-    ///
-    /// For dynamic runtime-string construction, use
-    /// ``Argument/Name/Long/init(_:)`` directly.
-    ///
-    /// - Parameter name: A static string matching `[a-zA-Z][a-zA-Z0-9-]*`.
-    /// - Returns: A `.long(_)` name carrying the validated long form.
-    @inlinable
-    public static func longLiteral(_ name: StaticString) -> Argument.Name {
-        .long(.literal(name))
-    }
-
-    /// Constructs a `.short(_)` name from a known-good literal character,
-    /// trapping on validation failure.
-    ///
-    /// Production-site companion enabling declarative schema bodies free
-    /// of `try` for literal option-name construction:
-    ///
-    /// ```swift
-    /// Command.Flag(\.verbose, name: .shortLiteral("v"))
-    /// ```
-    ///
-    /// Equivalent to `.short(.literal(name))` — the convenience factory
-    /// hoists the dotted form to top-level on `Argument.Name`.
-    ///
-    /// - Parameter name: A single ASCII alphanumeric character literal.
-    /// - Returns: A `.short(_)` name carrying the validated short form.
-    @inlinable
-    public static func shortLiteral(_ name: Character) -> Argument.Name {
-        .short(.literal(name))
-    }
-
-    /// Constructs a `.both(short:long:)` name from known-good literals,
-    /// trapping on validation failure.
-    ///
-    /// Production-site companion enabling declarative schema bodies free
-    /// of `try` when binding both a short and long form:
-    ///
-    /// ```swift
-    /// Command.Flag(\.verbose, name: .bothLiteral(short: "v", long: "verbose"))
-    /// ```
-    ///
-    /// - Parameters:
-    ///   - short: A single ASCII alphanumeric character literal.
-    ///   - long: A static string matching `[a-zA-Z][a-zA-Z0-9-]*`.
-    /// - Returns: A `.both(short:long:)` name carrying both validated forms.
-    @inlinable
-    public static func bothLiteral(
-        short: Character,
-        long: StaticString
-    ) -> Argument.Name {
-        .both(short: .literal(short), long: .literal(long))
-    }
-}
+// Literal-name factories deleted: consumers use the canonical dotted form
+// `.long(.literal(name))` / `.short(.literal(char))` / `.both(short:long:)`
+// directly. The longLiteral/shortLiteral/bothLiteral convenience hoists
+// were compound-named (per [API-NAME-002]) and the longer dotted form
+// reads cleanly enough that the hoist had no ergonomic payoff.

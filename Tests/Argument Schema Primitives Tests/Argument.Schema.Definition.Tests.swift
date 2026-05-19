@@ -21,8 +21,8 @@ extension Argument.Schema.Definition<Root> {
         @Suite struct Unit {
             @Test func `accept walks nodes in declaration order`() throws(Argument.Name.Long.Error) {
                 let nodes: [any Argument.Schema.Node] = [
-                    Argument.Positional<String>(name: "phrase", valueName: "phrase"),
-                    Argument.Option<Int>(name: .long(try .init("count")), valueName: "count"),
+                    Argument.Positional<String>(name: "phrase", placeholder: "phrase"),
+                    Argument.Option<Int>(name: .long(try .init("count")), placeholder: "count"),
                     Argument.Flag(name: .long(try .init("verbose"))),
                 ]
                 let definition = Argument.Schema.Definition<Root>(nodes: nodes)
@@ -40,8 +40,8 @@ extension Argument.Schema.Definition<Root> {
 
             @Test func `schema with all node kinds visits each kind`() throws(Argument.Name.Long.Error) {
                 let nodes: [any Argument.Schema.Node] = [
-                    Argument.Positional<String>(name: "p", valueName: "p"),
-                    Argument.Option<Int>(name: .long(try .init("o")), valueName: "o"),
+                    Argument.Positional<String>(name: "p", placeholder: "p"),
+                    Argument.Option<Int>(name: .long(try .init("o")), placeholder: "o"),
                     Argument.Flag(name: .long(try .init("f"))),
                     Argument.Group<Root>(name: "g"),
                     Argument.Subcommand<Root>(name: "s"),

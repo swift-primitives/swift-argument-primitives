@@ -48,35 +48,17 @@ extension Argument.Name {
                 #expect(name.character == "v")
             }
 
-            @Test func `Argument.Name.longLiteral hoists Long.literal to .long(_) case`() {
-                let name = Argument.Name.longLiteral("count")
-                #expect(name.long?.string == "count")
-                #expect(name.short == nil)
-            }
-
-            @Test func `Argument.Name.shortLiteral hoists Short.literal to .short(_) case`() {
-                let name = Argument.Name.shortLiteral("c")
-                #expect(name.short?.character == "c")
-                #expect(name.long == nil)
-            }
-
-            @Test func `Argument.Name.bothLiteral hoists both literals to .both(short:long:)`() {
-                let name = Argument.Name.bothLiteral(short: "v", long: "verbose")
-                #expect(name.short?.character == "v")
-                #expect(name.long?.string == "verbose")
-            }
-
             @Test func `Argument.Name.Long.literal accepts hyphenated form`() {
                 let name = Argument.Name.Long.literal("dry-run")
                 #expect(name.string == "dry-run")
             }
 
-            @Test func `Argument.Name.longLiteral produces value usable at production sites`() {
+            @Test func `canonical dotted-name forms compose at production sites`() {
                 // Production-site shape: declarative, no `try`, no `_unchecked`.
                 let names: [Argument.Name] = [
-                    .longLiteral("verbose"),
-                    .shortLiteral("v"),
-                    .bothLiteral(short: "h", long: "help"),
+                    .long(.literal("verbose")),
+                    .short(.literal("v")),
+                    .both(short: .literal("h"), long: .literal("help")),
                 ]
                 #expect(names.count == 3)
                 #expect(names[0].long?.string == "verbose")

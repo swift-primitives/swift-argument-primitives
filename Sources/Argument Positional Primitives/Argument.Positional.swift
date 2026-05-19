@@ -27,7 +27,7 @@ extension Argument {
     /// // At L3, in a schema builder:
     /// Argument.Positional<String>(
     ///     name: "phrase",
-    ///     valueName: "phrase",
+    ///     placeholder: "phrase",
     ///     arity: .exactly(1),
     ///     visibility: .visible,
     ///     help: .init(abstract: "The phrase to repeat.")
@@ -37,7 +37,7 @@ extension Argument {
         /// The schema-side name of this positional (used in diagnostics and help).
         public let name: String
         /// The placeholder rendered in usage lines (e.g., `<phrase>`).
-        public let valueName: String
+        public let placeholder: String
         /// The expected arity (typically `.exactly(1)`).
         public let arity: Argument.Arity
         /// Whether this argument appears in help text.
@@ -49,20 +49,20 @@ extension Argument {
         ///
         /// - Parameters:
         ///   - name: The schema-side identifier (used in diagnostics).
-        ///   - valueName: The usage-line placeholder (e.g., `phrase`).
+        ///   - placeholder: The usage-line placeholder (e.g., `phrase`).
         ///   - arity: How many values this positional consumes. Defaults to `.exactly(1)`.
         ///   - visibility: Whether this argument appears in help text. Defaults to `.visible`.
         ///   - help: Documentation for this positional. Defaults to empty.
         @inlinable
         public init(
             name: String,
-            valueName: String,
+            placeholder: String,
             arity: Argument.Arity = .exactly(1),
             visibility: Argument.Visibility = .visible,
             help: Argument.Help = .init()
         ) {
             self.name = name
-            self.valueName = valueName
+            self.placeholder = placeholder
             self.arity = arity
             self.visibility = visibility
             self.help = help

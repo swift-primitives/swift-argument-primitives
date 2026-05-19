@@ -31,7 +31,7 @@ extension Argument.Flag {
     /// `AllCases` is a `RandomAccessCollection` indexed by `Int` — i.e.,
     /// the common Swift `enum` case with synthesized `[Self]` allCases.
     /// Consumers therefore only need to supply the two CLI-specific
-    /// requirements: ``flagName(for:)`` and ``help(for:)``.
+    /// requirements: ``name(for:)`` and ``help(for:)``.
     ///
     /// This refinement makes the protocol structurally equivalent to
     /// `Finite.Enumerable` (a finite, indexable, enumerable type) with
@@ -46,7 +46,7 @@ extension Argument.Flag {
     /// - `Finite.Enumerable` (inherited): supplies `CaseIterable + Sendable`
     ///   plus the `count` / `ordinal` / `init(_unchecked:ordinal:)` spine.
     /// - `Hashable`: keeps the dispatch storage trivially index-able.
-    /// - ``flagName(for:)``: the long-option name for each case. Default
+    /// - ``name(for:)``: the long-option name for each case. Default
     ///   name derivation from the case identifier is unavailable in Swift
     ///   without `Mirror` reflection, so the mapping is an explicit static
     ///   requirement — the conformer owns the case-to-CLI-name mapping at
@@ -62,7 +62,7 @@ extension Argument.Flag {
     ///     case add
     ///     case multiply
     ///
-    ///     static func flagName(for value: Self) -> Argument.Name.Long {
+    ///     static func name(for value: Self) -> Argument.Name.Long {
     ///         switch value {
     ///         case .add: return .literal("add")
     ///         case .multiply: return .literal("multiply")
@@ -91,11 +91,11 @@ extension Argument.Flag {
         /// Each enum case maps to a distinct ``Argument/Name/Long``;
         /// duplicated names across cases would create an ambiguous
         /// schema and are rejected at parse-visitor finalization.
-        static func flagName(for value: Self) -> Argument.Name.Long
+        static func name(for value: Self) -> Argument.Name.Long
 
         /// The help descriptor rendered for `value` in `--help` output.
         ///
-        /// Returning ``Argument/Help/init(abstract:discussion:valueDescription:defaultDescription:)``
+        /// Returning ``Argument/Help/init(abstract:discussion:placeholder:defaults:)``
         /// with an empty `abstract` is permitted when no per-case
         /// description is available.
         static func help(for value: Self) -> Argument.Help
