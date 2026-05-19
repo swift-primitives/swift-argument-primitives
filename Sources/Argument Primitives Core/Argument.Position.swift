@@ -25,9 +25,21 @@ extension Argument {
     /// ```
     public struct Position: Sendable, Hashable, Equatable {
         /// The zero-based argv index (matching `CommandLine.arguments` order).
-        public let argvIndex: Int
+        ///
+        /// Phantom-typed by `String` (the argv element type) for compile-time
+        /// domain safety: an `Index<String>` cannot be confused with indices
+        /// into other collections.
+        public let argvIndex: Index<String>
+
         /// The zero-based byte offset within that argv element.
-        public let byteOffset: Int
+        ///
+        /// Phantom-typed by `Byte` (the institute's byte-domain marker, per
+        /// `byte-protocol-capability-marker.md` Q1=Option B). `Byte` is the
+        /// byte-domain twin of `UInt8` (the arithmetic-algebras type); using
+        /// `Byte` as the tag aligns this displacement with the byte-domain
+        /// identity discipline. `Index<Byte>.Offset` is
+        /// `Tagged<Byte, Affine.Discrete.Vector>` (signed byte displacement).
+        public let byteOffset: Index<Byte>.Offset
 
         /// Creates an argv position.
         ///
@@ -35,7 +47,7 @@ extension Argument {
         ///   - argvIndex: The zero-based argv index.
         ///   - byteOffset: The zero-based byte offset within the argv element.
         @inlinable
-        public init(argvIndex: Int, byteOffset: Int) {
+        public init(argvIndex: Index<String>, byteOffset: Index<Byte>.Offset) {
             self.argvIndex = argvIndex
             self.byteOffset = byteOffset
         }

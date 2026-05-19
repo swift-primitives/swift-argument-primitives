@@ -66,6 +66,9 @@ let package = Package(
         .package(path: "../swift-diagnostic-primitives"),
         .package(path: "../swift-parser-primitives"),
         .package(path: "../swift-finite-primitives"),
+        .package(path: "../swift-index-primitives"),
+        .package(path: "../swift-affine-primitives"),
+        .package(path: "../swift-byte-primitives"),
     ],
     targets: [
         // MARK: - Namespace
@@ -82,6 +85,9 @@ let package = Package(
                 .product(name: "Tagged Primitives", package: "swift-tagged-primitives"),
                 .product(name: "Text Primitives", package: "swift-text-primitives"),
                 .product(name: "Diagnostic Primitives", package: "swift-diagnostic-primitives"),
+                .product(name: "Index Primitives Core", package: "swift-index-primitives"),
+                .product(name: "Affine Primitives Core", package: "swift-affine-primitives"),
+                .product(name: "Byte Primitives", package: "swift-byte-primitives"),
             ]
         ),
 
