@@ -80,16 +80,5 @@ extension Argument.Schema.Definition {
             try node.accept(&visitor)
         }
     }
-
-    /// Non-throwing specialization for visitors that cannot fail.
-    /// Duplicate body per [IMPL-042] — forwarding does not specialize.
-    @inlinable
-    public func accept<Visitor: Argument.Schema.Visitor>(
-        _ visitor: inout Visitor
-    ) where Visitor.Failure == Never {
-        for node in nodes {
-            node.accept(&visitor)
-        }
-    }
 }
 // swiftlint:enable no_any_protocol_existential

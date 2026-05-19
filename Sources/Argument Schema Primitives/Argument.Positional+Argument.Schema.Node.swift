@@ -19,13 +19,4 @@ extension Argument.Positional: Argument.Schema.Node {
     ) throws(Visitor.Failure) {
         try visitor.visit(positional: self)
     }
-
-    /// Non-throwing specialization for visitors that cannot fail.
-    /// Duplicate body per [IMPL-042] — forwarding does not specialize.
-    @inlinable
-    public func accept<Visitor: Argument.Schema.Visitor>(
-        _ visitor: inout Visitor
-    ) where Visitor.Failure == Never {
-        visitor.visit(positional: self)
-    }
 }
