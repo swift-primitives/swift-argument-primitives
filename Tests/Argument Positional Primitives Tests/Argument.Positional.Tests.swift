@@ -13,49 +13,51 @@ import Testing
 
 @testable import Argument_Primitives_Test_Support
 
-@Suite("Argument.Positional")
-struct ArgumentPositionalTests {
+extension Argument.Positional<String> {
+    @Suite("Argument.Positional")
+    struct Test {
+        @Suite struct Unit {
+            @Test func `initializer carries explicit fields`() {
+                let positional = Argument.Positional<String>(
+                    name: "phrase",
+                    valueName: "phrase",
+                    arity: .exactly(1),
+                    visibility: .visible,
+                    help: .init(abstract: "The phrase to repeat.")
+                )
+                #expect(positional.name == "phrase")
+                #expect(positional.valueName == "phrase")
+                #expect(positional.arity == .exactly(1))
+                #expect(positional.visibility == .visible)
+                #expect(positional.help.abstract == "The phrase to repeat.")
+            }
 
-    @Test("initializer carries explicit fields")
-    func initializerCarriesExplicitFields() {
-        let positional = Argument.Positional<String>(
-            name: "phrase",
-            valueName: "phrase",
-            arity: .exactly(1),
-            visibility: .visible,
-            help: .init(abstract: "The phrase to repeat.")
-        )
-        #expect(positional.name == "phrase")
-        #expect(positional.valueName == "phrase")
-        #expect(positional.arity == .exactly(1))
-        #expect(positional.visibility == .visible)
-        #expect(positional.help.abstract == "The phrase to repeat.")
-    }
+            @Test func `default arity is exactly(1)`() {
+                let positional = Argument.Positional<String>(name: "x", valueName: "x")
+                #expect(positional.arity == .exactly(1))
+            }
 
-    @Test("default arity is exactly(1)")
-    func defaultArityIsExactlyOne() {
-        let positional = Argument.Positional<String>(name: "x", valueName: "x")
-        #expect(positional.arity == .exactly(1))
-    }
+            @Test func `default visibility is visible`() {
+                let positional = Argument.Positional<String>(name: "x", valueName: "x")
+                #expect(positional.visibility == .visible)
+            }
 
-    @Test("default visibility is visible")
-    func defaultVisibilityIsVisible() {
-        let positional = Argument.Positional<String>(name: "x", valueName: "x")
-        #expect(positional.visibility == .visible)
-    }
+            @Test func `generic over Int value type`() {
+                let positional = Argument.Positional<Int>(name: "count", valueName: "count")
+                #expect(positional.name == "count")
+            }
 
-    @Test("generic over Int value type")
-    func genericOverIntValueType() {
-        let positional = Argument.Positional<Int>(name: "count", valueName: "count")
-        #expect(positional.name == "count")
-    }
+            @Test func equatable() {
+                let a = Argument.Positional<String>(name: "x", valueName: "x")
+                let b = Argument.Positional<String>(name: "x", valueName: "x")
+                let c = Argument.Positional<String>(name: "y", valueName: "x")
+                #expect(a == b)
+                #expect(a != c)
+            }
+        }
 
-    @Test("equatable")
-    func equatable() {
-        let a = Argument.Positional<String>(name: "x", valueName: "x")
-        let b = Argument.Positional<String>(name: "x", valueName: "x")
-        let c = Argument.Positional<String>(name: "y", valueName: "x")
-        #expect(a == b)
-        #expect(a != c)
+        @Suite struct `Edge Case` {}
+
+        @Suite struct Integration {}
     }
 }

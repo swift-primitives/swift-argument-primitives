@@ -15,90 +15,90 @@ import Finite_Primitives_Core
 
 @testable import Argument_Primitives_Test_Support
 
-@Suite("Argument.Flag.Enumerable")
-struct ArgumentFlagEnumerableTests {
+fileprivate enum Operation: Argument.Flag.Enumerable {
+    case add
+    case multiply
+}
 
-    enum Operation: Argument.Flag.Enumerable {
-        case add
-        case multiply
-
-        static func flagName(for value: Self) -> Argument.Name.Long {
-            switch value {
-            case .add: return .literal("add")
-            case .multiply: return .literal("multiply")
-            }
-        }
-
-        static func help(for value: Self) -> Argument.Help {
-            switch value {
-            case .add: return .init(abstract: "Add operands.")
-            case .multiply: return .init(abstract: "Multiply operands.")
-            }
+extension Operation {
+    // swift-linter:disable:next compound identifier
+    // REASON: Witness for `Argument.Flag.Enumerable.flagName(for:)` — protocol requirement; conformer is forced to use the exact protocol-side name.
+    static func flagName(for value: Self) -> Argument.Name.Long {
+        switch value {
+        case .add: return .literal("add")
+        case .multiply: return .literal("multiply")
         }
     }
 
-    @Test("CaseIterable enumerates every case")
-    func caseIterable() {
-        let all = Operation.allCases
-        #expect(all == [.add, .multiply])
+    static func help(for value: Self) -> Argument.Help {
+        switch value {
+        case .add: return .init(abstract: "Add operands.")
+        case .multiply: return .init(abstract: "Multiply operands.")
+        }
     }
+}
 
-    @Test("flagName(for:) returns the registered long name")
-    func flagNameReturnsLong() {
-        #expect(Operation.flagName(for: .add).string == "add")
-        #expect(Operation.flagName(for: .multiply).string == "multiply")
-    }
+extension Operation {
+    @Suite("Argument.Flag.Enumerable")
+    struct Test {
+        @Suite struct Unit {
+            @Test func `CaseIterable enumerates every case`() {
+                let all = Operation.allCases
+                #expect(all == [.add, .multiply])
+            }
 
-    @Test("help(for:) carries the per-case abstract")
-    func helpCarriesAbstract() {
-        #expect(Operation.help(for: .add).abstract == "Add operands.")
-        #expect(Operation.help(for: .multiply).abstract == "Multiply operands.")
-    }
+            @Test func `flagName(for:) returns the registered long name`() {
+                #expect(Operation.flagName(for: .add).string == "add")
+                #expect(Operation.flagName(for: .multiply).string == "multiply")
+            }
 
-    @Test("each case maps to a distinct flagName — schema-builder invariant")
-    func distinctFlagNames() {
-        let names = Operation.allCases.map { Operation.flagName(for: $0).string }
-        #expect(Set(names).count == names.count)
-    }
+            @Test func `help(for:) carries the per-case abstract`() {
+                #expect(Operation.help(for: .add).abstract == "Add operands.")
+                #expect(Operation.help(for: .multiply).abstract == "Multiply operands.")
+            }
 
-    // MARK: - Finite.Enumerable refinement
+            @Test func `each case maps to a distinct flagName — schema-builder invariant`() {
+                let names = Operation.allCases.map { Operation.flagName(for: $0).string }
+                #expect(Set(names).count == names.count)
+            }
 
-    @Test("Finite.Enumerable bridge derives count from CaseIterable")
-    func bridgedCount() {
-        #expect(Operation.count == Cardinal(2))
-    }
+            @Test func `Finite.Enumerable bridge derives count from CaseIterable`() {
+                #expect(Operation.count == Cardinal(2))
+            }
 
-    @Test("Finite.Enumerable bridge derives ordinal from allCases position")
-    func bridgedOrdinal() {
-        #expect(Operation.add.ordinal == Ordinal(0))
-        #expect(Operation.multiply.ordinal == Ordinal(1))
-    }
+            @Test func `Finite.Enumerable bridge derives ordinal from allCases position`() {
+                #expect(Operation.add.ordinal == Ordinal(0))
+                #expect(Operation.multiply.ordinal == Ordinal(1))
+            }
 
-    @Test("Finite.Enumerable bridge reconstructs value from ordinal")
-    func bridgedInitFromOrdinal() {
-        #expect(Operation(_unchecked: (), ordinal: Ordinal(0)) == .add)
-        #expect(Operation(_unchecked: (), ordinal: Ordinal(1)) == .multiply)
-    }
+            @Test func `Finite.Enumerable bridge reconstructs value from ordinal`() {
+                #expect(Operation(_unchecked: (), ordinal: Ordinal(0)) == .add)
+                #expect(Operation(_unchecked: (), ordinal: Ordinal(1)) == .multiply)
+            }
 
-    @Test("init?(_:) round-trips through ordinal for in-bounds values")
-    func bridgedTotalInit() {
-        #expect(Operation(Ordinal(0)) == .add)
-        #expect(Operation(Ordinal(1)) == .multiply)
-        #expect(Operation(Ordinal(2)) == nil)
-    }
-
-    @Test("Argument.Flag.Enumerable conformer is usable wherever Finite.Enumerable is expected")
-    func structuralRefinement() {
-        // This generic function accepts ANY Finite.Enumerable — including
-        // types unrelated to argument parsing. The fact that Operation
-        // type-checks here is the structural-refinement guarantee.
-        func sumOfOrdinals<E: Finite.Enumerable>(_: E.Type) -> Cardinal {
-            E.allCases.reduce(Cardinal.zero) { partial, value in
-                partial + Cardinal(value.ordinal.rawValue)
+            @Test func `init?(_:) round-trips through ordinal for in-bounds values`() {
+                #expect(Operation(Ordinal(0)) == .add)
+                #expect(Operation(Ordinal(1)) == .multiply)
+                #expect(Operation(Ordinal(2)) == nil)
             }
         }
 
-        // For Operation: 0 + 1 == 1
-        #expect(sumOfOrdinals(Operation.self) == Cardinal(1))
+        @Suite struct `Edge Case` {}
+
+        @Suite struct Integration {
+            @Test func `Argument.Flag.Enumerable conformer is usable wherever Finite.Enumerable is expected`() {
+                // This generic function accepts ANY Finite.Enumerable — including
+                // types unrelated to argument parsing. The fact that Operation
+                // type-checks here is the structural-refinement guarantee.
+                func total<E: Finite.Enumerable>(_: E.Type) -> Cardinal {
+                    E.allCases.reduce(Cardinal.zero) { partial, value in
+                        partial + Cardinal(value.ordinal.rawValue)
+                    }
+                }
+
+                // For Operation: 0 + 1 == 1
+                #expect(total(Operation.self) == Cardinal(1))
+            }
+        }
     }
 }

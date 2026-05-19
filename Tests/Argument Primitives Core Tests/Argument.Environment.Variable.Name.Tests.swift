@@ -13,19 +13,24 @@ import Testing
 
 @testable import Argument_Primitives_Test_Support
 
-@Suite("Argument.Environment.Variable.Name")
-struct ArgumentEnvironmentVariableNameTests {
+extension Argument.Environment.Variable.Name {
+    @Suite("Argument.Environment.Variable.Name")
+    struct Test {
+        @Suite struct Unit {
+            @Test func `constructs from string literal via Tagged SLI`() {
+                let name: Argument.Environment.Variable.Name = "MYAPP_VERBOSITY"
+                #expect(name.underlying == "MYAPP_VERBOSITY")
+            }
 
-    @Test("constructs from string literal via Tagged SLI")
-    func constructsFromStringLiteral() {
-        let name: Argument.Environment.Variable.Name = "MYAPP_VERBOSITY"
-        #expect(name.underlying == "MYAPP_VERBOSITY")
-    }
+            @Test func `two names with same underlying are equal`() {
+                let a: Argument.Environment.Variable.Name = "FOO"
+                let b: Argument.Environment.Variable.Name = "FOO"
+                #expect(a == b)
+            }
+        }
 
-    @Test("two names with same underlying are equal")
-    func equality() {
-        let a: Argument.Environment.Variable.Name = "FOO"
-        let b: Argument.Environment.Variable.Name = "FOO"
-        #expect(a == b)
+        @Suite struct `Edge Case` {}
+
+        @Suite struct Integration {}
     }
 }

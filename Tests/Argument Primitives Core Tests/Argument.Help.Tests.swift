@@ -13,29 +13,34 @@ import Testing
 
 @testable import Argument_Primitives_Test_Support
 
-@Suite("Argument.Help")
-struct ArgumentHelpTests {
+extension Argument.Help {
+    @Suite("Argument.Help")
+    struct Test {
+        @Suite struct Unit {
+            @Test func `default initializer produces empty fields`() {
+                let help = Argument.Help()
+                #expect(help.abstract.isEmpty)
+                #expect(help.discussion.isEmpty)
+                #expect(help.valueDescription == nil)
+                #expect(help.defaultDescription == nil)
+            }
 
-    @Test("default initializer produces empty fields")
-    func defaultInitProducesEmptyFields() {
-        let help = Argument.Help()
-        #expect(help.abstract.isEmpty)
-        #expect(help.discussion.isEmpty)
-        #expect(help.valueDescription == nil)
-        #expect(help.defaultDescription == nil)
-    }
+            @Test func `named initializer carries values`() {
+                let help = Argument.Help(
+                    abstract: "Count",
+                    discussion: "The count.",
+                    valueDescription: "<n>",
+                    defaultDescription: "2"
+                )
+                #expect(help.abstract == "Count")
+                #expect(help.discussion == "The count.")
+                #expect(help.valueDescription == "<n>")
+                #expect(help.defaultDescription == "2")
+            }
+        }
 
-    @Test("named initializer carries values")
-    func namedInitCarriesValues() {
-        let help = Argument.Help(
-            abstract: "Count",
-            discussion: "The count.",
-            valueDescription: "<n>",
-            defaultDescription: "2"
-        )
-        #expect(help.abstract == "Count")
-        #expect(help.discussion == "The count.")
-        #expect(help.valueDescription == "<n>")
-        #expect(help.defaultDescription == "2")
+        @Suite struct `Edge Case` {}
+
+        @Suite struct Integration {}
     }
 }

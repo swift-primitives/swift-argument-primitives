@@ -13,54 +13,64 @@ import Testing
 
 @testable import Argument_Primitives_Test_Support
 
-@Suite("Argument.Subcommand")
-struct ArgumentSubcommandTests {
+fileprivate struct PushResult: Sendable {}
 
-    fileprivate struct PushResult: Sendable {}
+fileprivate enum Result: Sendable {
+    case push
+    case pull
+}
 
-    @Test("initializer carries explicit fields")
-    func initializerCarriesExplicitFields() {
-        let subcommand = Argument.Subcommand<PushResult>(
-            name: "push",
-            aliases: ["p"],
-            visibility: .visible,
-            help: .init(abstract: "Push.")
-        )
-        #expect(subcommand.name == "push")
-        #expect(subcommand.aliases == ["p"])
-        #expect(subcommand.visibility == .visible)
-        #expect(subcommand.help.abstract == "Push.")
-    }
+extension Argument.Subcommand<PushResult> {
+    @Suite("Argument.Subcommand")
+    struct Test {
+        @Suite struct Unit {
+            @Test func `initializer carries explicit fields`() {
+                let subcommand = Argument.Subcommand<PushResult>(
+                    name: "push",
+                    aliases: ["p"],
+                    visibility: .visible,
+                    help: .init(abstract: "Push.")
+                )
+                #expect(subcommand.name == "push")
+                #expect(subcommand.aliases == ["p"])
+                #expect(subcommand.visibility == .visible)
+                #expect(subcommand.help.abstract == "Push.")
+            }
 
-    @Test("default aliases is empty")
-    func defaultAliasesIsEmpty() {
-        let subcommand = Argument.Subcommand<PushResult>(name: "push")
-        #expect(subcommand.aliases.isEmpty)
-    }
+            @Test func `default aliases is empty`() {
+                let subcommand = Argument.Subcommand<PushResult>(name: "push")
+                #expect(subcommand.aliases.isEmpty)
+            }
 
-    @Test("default visibility is visible")
-    func defaultVisibilityIsVisible() {
-        let subcommand = Argument.Subcommand<PushResult>(name: "push")
-        #expect(subcommand.visibility == .visible)
+            @Test func `default visibility is visible`() {
+                let subcommand = Argument.Subcommand<PushResult>(name: "push")
+                #expect(subcommand.visibility == .visible)
+            }
+        }
+
+        @Suite struct `Edge Case` {}
+
+        @Suite struct Integration {}
     }
 }
 
-@Suite("Argument.Subcommand.Choice")
-struct ArgumentSubcommandChoiceTests {
+extension Argument.Subcommand<Result>.Choice {
+    @Suite("Argument.Subcommand.Choice")
+    struct Test {
+        @Suite struct Unit {
+            @Test func `declarations stored in declared order`() {
+                let choice = Argument.Subcommand<Result>.Choice(declarations: [
+                    .init(name: "push"),
+                    .init(name: "pull"),
+                ])
+                #expect(choice.declarations.count == 2)
+                #expect(choice.declarations[0].name == "push")
+                #expect(choice.declarations[1].name == "pull")
+            }
+        }
 
-    fileprivate enum Result: Sendable {
-        case push
-        case pull
-    }
+        @Suite struct `Edge Case` {}
 
-    @Test("declarations stored in declared order")
-    func declarationsStoredInDeclaredOrder() {
-        let choice = Argument.Subcommand<Result>.Choice(declarations: [
-            .init(name: "push"),
-            .init(name: "pull"),
-        ])
-        #expect(choice.declarations.count == 2)
-        #expect(choice.declarations[0].name == "push")
-        #expect(choice.declarations[1].name == "pull")
+        @Suite struct Integration {}
     }
 }

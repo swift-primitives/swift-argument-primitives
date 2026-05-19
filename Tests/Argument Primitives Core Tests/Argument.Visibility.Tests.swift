@@ -13,11 +13,17 @@ import Testing
 
 @testable import Argument_Primitives_Test_Support
 
-@Suite("Argument.Visibility")
-struct ArgumentVisibilityTests {
+extension Argument.Visibility {
+    @Suite("Argument.Visibility")
+    struct Test {
+        @Suite struct Unit {
+            @Test func `cases distinct`() {
+                #expect(Argument.Visibility.visible != Argument.Visibility.hidden)
+            }
+        }
 
-    @Test("cases distinct")
-    func casesDistinct() {
-        #expect(Argument.Visibility.visible != Argument.Visibility.hidden)
+        @Suite struct `Edge Case` {}
+
+        @Suite struct Integration {}
     }
 }

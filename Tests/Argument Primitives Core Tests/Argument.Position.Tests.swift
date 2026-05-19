@@ -13,22 +13,27 @@ import Testing
 
 @testable import Argument_Primitives_Test_Support
 
-@Suite("Argument.Position")
-struct ArgumentPositionTests {
+extension Argument.Position {
+    @Suite("Argument.Position")
+    struct Test {
+        @Suite struct Unit {
+            @Test func `initializer carries argvIndex and byteOffset`() {
+                let position = Argument.Position(argvIndex: 2, byteOffset: 5)
+                #expect(position.argvIndex == 2)
+                #expect(position.byteOffset == 5)
+            }
 
-    @Test("initializer carries argvIndex and byteOffset")
-    func initializerCarriesFields() {
-        let position = Argument.Position(argvIndex: 2, byteOffset: 5)
-        #expect(position.argvIndex == 2)
-        #expect(position.byteOffset == 5)
-    }
+            @Test func `equality compares fields`() {
+                let a = Argument.Position(argvIndex: 0, byteOffset: 0)
+                let b = Argument.Position(argvIndex: 0, byteOffset: 0)
+                let c = Argument.Position(argvIndex: 0, byteOffset: 1)
+                #expect(a == b)
+                #expect(a != c)
+            }
+        }
 
-    @Test("equality compares fields")
-    func equalityComparesFields() {
-        let a = Argument.Position(argvIndex: 0, byteOffset: 0)
-        let b = Argument.Position(argvIndex: 0, byteOffset: 0)
-        let c = Argument.Position(argvIndex: 0, byteOffset: 1)
-        #expect(a == b)
-        #expect(a != c)
+        @Suite struct `Edge Case` {}
+
+        @Suite struct Integration {}
     }
 }

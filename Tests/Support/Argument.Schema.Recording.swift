@@ -24,15 +24,6 @@ extension Argument.Schema {
     /// #expect(visitor.events == [.positional, .option, .flag])
     /// ```
     public struct Recording: Sendable {
-        /// A record of one visited node's kind.
-        public enum Event: Sendable, Hashable, Equatable {
-            case positional
-            case option
-            case flag
-            case group
-            case subcommand
-        }
-
         /// The sequence of events recorded so far.
         public private(set) var events: [Event]
 
@@ -40,6 +31,17 @@ extension Argument.Schema {
         public init() {
             self.events = []
         }
+    }
+}
+
+extension Argument.Schema.Recording {
+    /// A record of one visited node's kind.
+    public enum Event: Sendable, Hashable, Equatable {
+        case positional
+        case option
+        case flag
+        case group
+        case subcommand
     }
 }
 
