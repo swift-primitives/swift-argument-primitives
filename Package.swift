@@ -85,7 +85,7 @@ let package = Package(
                 .product(name: "Tagged Primitives", package: "swift-tagged-primitives"),
                 .product(name: "Text Primitives", package: "swift-text-primitives"),
                 .product(name: "Diagnostic Primitives", package: "swift-diagnostic-primitives"),
-                .product(name: "Index Primitives Core", package: "swift-index-primitives"),
+                .product(name: "Index Primitives", package: "swift-index-primitives"),
                 .product(name: "Affine Primitives", package: "swift-affine-primitives"),
                 .product(name: "Byte Primitives", package: "swift-byte-primitives"),
             ]
