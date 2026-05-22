@@ -14,8 +14,8 @@ let package = Package(
     products: [
         // MARK: - Namespace
         .library(
-            name: "Argument Namespace",
-            targets: ["Argument Namespace"]
+            name: "Argument Primitive",
+            targets: ["Argument Primitive"]
         ),
 
         // MARK: - Core + Variants
@@ -73,7 +73,7 @@ let package = Package(
     targets: [
         // MARK: - Namespace
         .target(
-            name: "Argument Namespace",
+            name: "Argument Primitive",
             dependencies: []
         ),
 
@@ -81,7 +81,7 @@ let package = Package(
         .target(
             name: "Argument Primitives Core",
             dependencies: [
-                "Argument Namespace",
+                "Argument Primitive",
                 .product(name: "Tagged Primitives", package: "swift-tagged-primitives"),
                 .product(name: "Text Primitives", package: "swift-text-primitives"),
                 .product(name: "Diagnostic Primitives", package: "swift-diagnostic-primitives"),
@@ -147,7 +147,7 @@ let package = Package(
         .target(
             name: "Argument Primitives",
             dependencies: [
-                "Argument Namespace",
+                "Argument Primitive",
                 "Argument Primitives Core",
                 "Argument Positional Primitives",
                 "Argument Option Primitives",
