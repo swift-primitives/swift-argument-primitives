@@ -9,7 +9,7 @@
 //
 // ===----------------------------------------------------------------------===//
 
-public import Finite_Primitives_Core
+public import Finite_Primitives
 
 extension Argument.Flag {
     /// An enum that maps each case to a long-option name for mutually

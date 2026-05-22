@@ -11,7 +11,7 @@
 
 import Testing
 
-import Finite_Primitives_Core
+import Finite_Primitives
 
 @testable import Argument_Primitives_Test_Support
 

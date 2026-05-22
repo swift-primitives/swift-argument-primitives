@@ -111,7 +111,7 @@ let package = Package(
             dependencies: [
                 "Argument Primitives Core",
                 .product(name: "Parser Primitives Core", package: "swift-parser-primitives"),
-                .product(name: "Finite Primitives Core", package: "swift-finite-primitives"),
+                .product(name: "Finite Primitives", package: "swift-finite-primitives"),
             ]
         ),
         .target(
@@ -164,7 +164,7 @@ let package = Package(
             dependencies: [
                 "Argument Primitives",
                 .product(name: "Tagged Primitives Test Support", package: "swift-tagged-primitives"),
-                .product(name: "Finite Primitives Core", package: "swift-finite-primitives"),
+                .product(name: "Finite Primitives", package: "swift-finite-primitives"),
             ],
             path: "Tests/Support"
         ),
