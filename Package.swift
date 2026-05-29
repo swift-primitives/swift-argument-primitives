@@ -61,14 +61,14 @@ let package = Package(
         ),
     ],
     dependencies: [
-        .package(path: "../swift-tagged-primitives"),
-        .package(path: "../swift-text-primitives"),
-        .package(path: "../swift-diagnostic-primitives"),
-        .package(path: "../swift-parser-primitives"),
-        .package(path: "../swift-finite-primitives"),
-        .package(path: "../swift-index-primitives"),
-        .package(path: "../swift-affine-primitives"),
-        .package(path: "../swift-byte-primitives"),
+        .package(url: "https://github.com/swift-primitives/swift-tagged-primitives.git", branch: "main"),
+        .package(url: "https://github.com/swift-primitives/swift-text-primitives.git", branch: "main"),
+        .package(url: "https://github.com/swift-primitives/swift-diagnostic-primitives.git", branch: "main"),
+        .package(url: "https://github.com/swift-primitives/swift-parser-primitives.git", branch: "main"),
+        .package(url: "https://github.com/swift-primitives/swift-finite-primitives.git", branch: "main"),
+        .package(url: "https://github.com/swift-primitives/swift-index-primitives.git", branch: "main"),
+        .package(url: "https://github.com/swift-primitives/swift-affine-primitives.git", branch: "main"),
+        .package(url: "https://github.com/swift-primitives/swift-byte-primitives.git", branch: "main"),
     ],
     targets: [
         // MARK: - Namespace
