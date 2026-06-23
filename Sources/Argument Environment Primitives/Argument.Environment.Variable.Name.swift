@@ -9,6 +9,9 @@
 //
 // ===----------------------------------------------------------------------===//
 
+public import Argument_Primitive
+public import Tagged_Primitives
+
 extension Argument.Environment.Variable {
     /// A process environment-variable name (e.g., `"MYAPP_VERBOSITY"`).
     ///

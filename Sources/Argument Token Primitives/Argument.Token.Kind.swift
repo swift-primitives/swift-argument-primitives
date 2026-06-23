@@ -9,6 +9,8 @@
 //
 // ===----------------------------------------------------------------------===//
 
+public import Argument_Primitive
+
 extension Argument.Token {
     /// The semantic kind of an argv-derived token after L2 tokenization
     /// has classified each argv element.

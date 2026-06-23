@@ -9,6 +9,10 @@
 //
 // ===----------------------------------------------------------------------===//
 
+public import Argument_Primitive
+public import Argument_Position_Primitives
+public import Diagnostic_Primitives
+
 extension Argument {
     /// Errors produced by argv parsing and schema validation.
     ///

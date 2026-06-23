@@ -9,6 +9,9 @@
 //
 // ===----------------------------------------------------------------------===//
 
+public import Argument_Primitive
+public import Text_Primitives
+
 extension Argument {
     /// A classified argv token after L2 tokenization.
     ///

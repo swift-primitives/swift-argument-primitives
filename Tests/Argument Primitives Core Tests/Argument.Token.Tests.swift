@@ -10,6 +10,7 @@
 // ===----------------------------------------------------------------------===//
 
 import Testing
+import Text_Primitives
 
 @testable import Argument_Primitives_Test_Support
 

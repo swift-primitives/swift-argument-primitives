@@ -1,4 +1,4 @@
-@_exported public import Argument_Primitives_Core
+@_exported public import Argument_Primitive
 @_exported public import Argument_Positional_Primitives
 @_exported public import Argument_Option_Primitives
 @_exported public import Argument_Flag_Primitives

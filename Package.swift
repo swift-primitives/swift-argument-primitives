@@ -18,11 +18,31 @@ let package = Package(
             targets: ["Argument Primitive"]
         ),
 
-        // MARK: - Core + Variants
+        // MARK: - Sub-namespaces
+        .library(
+            name: "Argument Position Primitives",
+            targets: ["Argument Position Primitives"]
+        ),
+        .library(
+            name: "Argument Error Primitives",
+            targets: ["Argument Error Primitives"]
+        ),
+        .library(
+            name: "Argument Environment Primitives",
+            targets: ["Argument Environment Primitives"]
+        ),
+        .library(
+            name: "Argument Token Primitives",
+            targets: ["Argument Token Primitives"]
+        ),
+
+        // MARK: - Core (deprecated transitional shim — removed in the cleanup wave)
         .library(
             name: "Argument Primitives Core",
             targets: ["Argument Primitives Core"]
         ),
+
+        // MARK: - Combinator Variants
         .library(
             name: "Argument Positional Primitives",
             targets: ["Argument Positional Primitives"]
@@ -77,11 +97,47 @@ let package = Package(
             dependencies: []
         ),
 
-        // MARK: - Core
+        // MARK: - Sub-namespaces (external-dep-bearing decls relocated from Core)
+        .target(
+            name: "Argument Position Primitives",
+            dependencies: [
+                "Argument Primitive",
+                .product(name: "Index Primitives", package: "swift-index-primitives"),
+                .product(name: "Byte Primitives", package: "swift-byte-primitives"),
+            ]
+        ),
+        .target(
+            name: "Argument Error Primitives",
+            dependencies: [
+                "Argument Primitive",
+                "Argument Position Primitives",
+                .product(name: "Diagnostic Primitives", package: "swift-diagnostic-primitives"),
+            ]
+        ),
+        .target(
+            name: "Argument Environment Primitives",
+            dependencies: [
+                "Argument Primitive",
+                .product(name: "Tagged Primitives", package: "swift-tagged-primitives"),
+            ]
+        ),
+        .target(
+            name: "Argument Token Primitives",
+            dependencies: [
+                "Argument Primitive",
+                .product(name: "Text Primitives", package: "swift-text-primitives"),
+            ]
+        ),
+
+        // MARK: - Core (deprecated transitional shim — exports-only, removed in the cleanup wave)
         .target(
             name: "Argument Primitives Core",
             dependencies: [
                 "Argument Primitive",
+                "Argument Position Primitives",
+                "Argument Error Primitives",
+                "Argument Environment Primitives",
+                "Argument Token Primitives",
                 .product(name: "Tagged Primitives", package: "swift-tagged-primitives"),
                 .product(name: "Text Primitives", package: "swift-text-primitives"),
                 .product(name: "Diagnostic Primitives", package: "swift-diagnostic-primitives"),
@@ -95,21 +151,22 @@ let package = Package(
         .target(
             name: "Argument Positional Primitives",
             dependencies: [
-                "Argument Primitives Core",
+                "Argument Primitive",
                 .product(name: "Parser Primitives Core", package: "swift-parser-primitives"),
             ]
         ),
         .target(
             name: "Argument Option Primitives",
             dependencies: [
-                "Argument Primitives Core",
+                "Argument Primitive",
+                "Argument Environment Primitives",
                 .product(name: "Parser Primitives Core", package: "swift-parser-primitives"),
             ]
         ),
         .target(
             name: "Argument Flag Primitives",
             dependencies: [
-                "Argument Primitives Core",
+                "Argument Primitive",
                 .product(name: "Parser Primitives Core", package: "swift-parser-primitives"),
                 .product(name: "Finite Primitives", package: "swift-finite-primitives"),
             ]
@@ -117,14 +174,14 @@ let package = Package(
         .target(
             name: "Argument Group Primitives",
             dependencies: [
-                "Argument Primitives Core",
+                "Argument Primitive",
                 .product(name: "Parser Primitives Core", package: "swift-parser-primitives"),
             ]
         ),
         .target(
             name: "Argument Subcommand Primitives",
             dependencies: [
-                "Argument Primitives Core",
+                "Argument Primitive",
                 .product(name: "Parser Primitives Core", package: "swift-parser-primitives"),
             ]
         ),
@@ -133,7 +190,7 @@ let package = Package(
         .target(
             name: "Argument Schema Primitives",
             dependencies: [
-                "Argument Primitives Core",
+                "Argument Primitive",
                 "Argument Positional Primitives",
                 "Argument Option Primitives",
                 "Argument Flag Primitives",
@@ -148,7 +205,10 @@ let package = Package(
             name: "Argument Primitives",
             dependencies: [
                 "Argument Primitive",
-                "Argument Primitives Core",
+                "Argument Position Primitives",
+                "Argument Error Primitives",
+                "Argument Environment Primitives",
+                "Argument Token Primitives",
                 "Argument Positional Primitives",
                 "Argument Option Primitives",
                 "Argument Flag Primitives",
