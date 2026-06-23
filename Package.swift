@@ -36,12 +36,6 @@ let package = Package(
             targets: ["Argument Token Primitives"]
         ),
 
-        // MARK: - Core (deprecated transitional shim — removed in the cleanup wave)
-        .library(
-            name: "Argument Primitives Core",
-            targets: ["Argument Primitives Core"]
-        ),
-
         // MARK: - Combinator Variants
         .library(
             name: "Argument Positional Primitives",
@@ -126,24 +120,6 @@ let package = Package(
             dependencies: [
                 "Argument Primitive",
                 .product(name: "Text Primitives", package: "swift-text-primitives"),
-            ]
-        ),
-
-        // MARK: - Core (deprecated transitional shim — exports-only, removed in the cleanup wave)
-        .target(
-            name: "Argument Primitives Core",
-            dependencies: [
-                "Argument Primitive",
-                "Argument Position Primitives",
-                "Argument Error Primitives",
-                "Argument Environment Primitives",
-                "Argument Token Primitives",
-                .product(name: "Tagged Primitives", package: "swift-tagged-primitives"),
-                .product(name: "Text Primitives", package: "swift-text-primitives"),
-                .product(name: "Diagnostic Primitives", package: "swift-diagnostic-primitives"),
-                .product(name: "Index Primitives", package: "swift-index-primitives"),
-                .product(name: "Affine Primitives", package: "swift-affine-primitives"),
-                .product(name: "Byte Primitives", package: "swift-byte-primitives"),
             ]
         ),
 
