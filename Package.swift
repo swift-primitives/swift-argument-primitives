@@ -152,7 +152,7 @@ let package = Package(
             name: "Argument Positional Primitives",
             dependencies: [
                 "Argument Primitive",
-                .product(name: "Parser Primitives Core", package: "swift-parser-primitives"),
+                .product(name: "Parser Primitives", package: "swift-parser-primitives"),
             ]
         ),
         .target(
@@ -160,14 +160,14 @@ let package = Package(
             dependencies: [
                 "Argument Primitive",
                 "Argument Environment Primitives",
-                .product(name: "Parser Primitives Core", package: "swift-parser-primitives"),
+                .product(name: "Parser Primitives", package: "swift-parser-primitives"),
             ]
         ),
         .target(
             name: "Argument Flag Primitives",
             dependencies: [
                 "Argument Primitive",
-                .product(name: "Parser Primitives Core", package: "swift-parser-primitives"),
+                .product(name: "Parser Primitives", package: "swift-parser-primitives"),
                 .product(name: "Finite Primitives", package: "swift-finite-primitives"),
             ]
         ),
@@ -175,14 +175,14 @@ let package = Package(
             name: "Argument Group Primitives",
             dependencies: [
                 "Argument Primitive",
-                .product(name: "Parser Primitives Core", package: "swift-parser-primitives"),
+                .product(name: "Parser Primitives", package: "swift-parser-primitives"),
             ]
         ),
         .target(
             name: "Argument Subcommand Primitives",
             dependencies: [
                 "Argument Primitive",
-                .product(name: "Parser Primitives Core", package: "swift-parser-primitives"),
+                .product(name: "Parser Primitives", package: "swift-parser-primitives"),
             ]
         ),
 
@@ -196,7 +196,7 @@ let package = Package(
                 "Argument Flag Primitives",
                 "Argument Group Primitives",
                 "Argument Subcommand Primitives",
-                .product(name: "Parser Primitives Core", package: "swift-parser-primitives"),
+                .product(name: "Parser Primitives", package: "swift-parser-primitives"),
             ]
         ),
 
