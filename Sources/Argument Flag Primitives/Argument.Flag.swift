@@ -36,7 +36,9 @@ extension Argument {
     public struct Flag: Sendable, Hashable, Equatable {
         /// The flag's name (short, long, or both).
         public let name: Argument.Name
-        /// How the flag is counted. `.atMost(1)` is the default; `.count`
+        /// How the flag is counted.
+        ///
+        /// `.atMost(1)` is the default; `.count`
         /// supports `-vvv` style multi-occurrence.
         public let arity: Argument.Arity
         /// Whether this flag appears in help text.

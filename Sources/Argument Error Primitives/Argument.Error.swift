@@ -9,8 +9,8 @@
 //
 // ===----------------------------------------------------------------------===//
 
-public import Argument_Primitive
 public import Argument_Position_Primitives
+public import Argument_Primitive
 public import Diagnostic_Primitives
 
 extension Argument {
@@ -55,14 +55,14 @@ extension Argument.Error {
     @inlinable
     public var position: Argument.Position {
         switch self {
-        case let .unknownOption(_, position),
-             let .missingValue(_, position),
-             let .invalidValue(_, _, position),
-             let .missingPositional(_, position),
-             let .unexpectedPositional(_, position),
-             let .missingSubcommand(position),
-             let .unknownSubcommand(_, position),
-             let .validationFailed(_, position):
+        case .unknownOption(_, let position),
+            .missingValue(_, let position),
+            .invalidValue(_, _, let position),
+            .missingPositional(_, let position),
+            .unexpectedPositional(_, let position),
+            .missingSubcommand(let position),
+            .unknownSubcommand(_, let position),
+            .validationFailed(_, let position):
             return position
         }
     }

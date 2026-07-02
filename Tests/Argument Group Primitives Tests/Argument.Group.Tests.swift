@@ -13,7 +13,7 @@ import Testing
 
 @testable import Argument_Primitives_Test_Support
 
-fileprivate struct Network: Sendable {}
+private struct Network: Sendable {}
 
 extension Argument.Group<Network> {
     @Suite("Argument.Group")

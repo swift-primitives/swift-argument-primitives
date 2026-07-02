@@ -13,9 +13,9 @@ import Testing
 
 @testable import Argument_Primitives_Test_Support
 
-fileprivate struct PushResult: Sendable {}
+private struct PushResult: Sendable {}
 
-fileprivate enum Result: Sendable {
+private enum Result: Sendable {
     case push
     case pull
 }

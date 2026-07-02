@@ -9,8 +9,8 @@
 //
 // ===----------------------------------------------------------------------===//
 
-import Testing
 import Diagnostic_Primitives
+import Testing
 
 @testable import Argument_Primitives_Test_Support
 

@@ -48,9 +48,9 @@ extension Argument.Name {
     @inlinable
     public var short: Argument.Name.Short? {
         switch self {
-        case let .short(value): return value
+        case .short(let value): return value
         case .long: return nil
-        case let .both(short, _): return short
+        case .both(let short, _): return short
         }
     }
 
@@ -59,8 +59,8 @@ extension Argument.Name {
     public var long: Argument.Name.Long? {
         switch self {
         case .short: return nil
-        case let .long(value): return value
-        case let .both(_, long): return long
+        case .long(let value): return value
+        case .both(_, let long): return long
         }
     }
 }

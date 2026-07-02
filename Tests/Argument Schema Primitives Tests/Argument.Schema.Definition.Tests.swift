@@ -13,7 +13,7 @@ import Testing
 
 @testable import Argument_Primitives_Test_Support
 
-fileprivate struct Root: Sendable {}
+private struct Root: Sendable {}
 
 extension Argument.Schema.Definition<Root> {
     @Suite("Argument.Schema.Definition")

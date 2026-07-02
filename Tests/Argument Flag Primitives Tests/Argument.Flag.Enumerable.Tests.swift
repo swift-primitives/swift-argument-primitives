@@ -9,13 +9,12 @@
 //
 // ===----------------------------------------------------------------------===//
 
-import Testing
-
 import Finite_Primitives
+import Testing
 
 @testable import Argument_Primitives_Test_Support
 
-fileprivate enum Operation: Argument.Flag.Enumerable {
+private enum Operation: Argument.Flag.Enumerable {
     case add
     case multiply
 }

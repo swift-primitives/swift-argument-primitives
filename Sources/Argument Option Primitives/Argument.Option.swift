@@ -39,7 +39,9 @@ extension Argument {
         public let visibility: Argument.Visibility
         /// Documentation for this option.
         public let help: Argument.Help
-        /// An optional default-value source. The L3 environment resolves
+        /// An optional default-value source.
+        ///
+        /// The L3 environment resolves
         /// the value (defaults, env-var lookup) at parse time.
         public let environment: Argument.Environment.Variable.Name?
 

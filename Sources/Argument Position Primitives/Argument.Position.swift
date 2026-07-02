@@ -10,8 +10,8 @@
 // ===----------------------------------------------------------------------===//
 
 public import Argument_Primitive
-public import Index_Primitives
 public import Byte_Primitives
+public import Index_Primitives
 
 extension Argument {
     /// A location in argv addressable for diagnostics.
