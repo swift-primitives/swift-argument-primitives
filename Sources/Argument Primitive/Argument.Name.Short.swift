@@ -50,7 +50,7 @@ extension Argument.Name.Short {
     /// - Throws: `Argument.Name.Short.Error.notASCIIAlphanumeric` if the
     ///   character is not a single ASCII alphanumeric.
     @inlinable
-    public init(_ character: Character) throws(Argument.Name.Short.Error) {
+    public init(_ character: Character) throws(Error) {
         guard character.isASCII, character.isLetter || character.isNumber else {
             throw .notASCIIAlphanumeric(found: character)
         }
@@ -83,7 +83,7 @@ extension Argument.Name.Short {
     /// - Returns: The validated short option name.
     @inlinable
     public static func literal(_ name: Character) -> Argument.Name.Short {
-        do throws(Argument.Name.Short.Error) {
+        do throws(Error) {
             return try Argument.Name.Short(name)
         } catch {
             preconditionFailure(
