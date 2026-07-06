@@ -10,7 +10,7 @@
 // ===----------------------------------------------------------------------===//
 
 extension Argument.Schema {
-    /// A visitor over an `Argument.Schema`'s nodes.
+    /// A visitor over the nodes of an `Argument.Schema`.
     ///
     /// Implementations receive value-typed dispatch from each
     /// `Argument.Schema.Node` (via `Node.accept(_:)`) and produce some
