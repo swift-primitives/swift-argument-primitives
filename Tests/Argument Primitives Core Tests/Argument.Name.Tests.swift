@@ -31,7 +31,10 @@ extension Argument.Name {
 
             @Test func `both case exposes short and long`() {
                 let name = Argument.Name.both(
+                    // Provably-valid literals ("v", "verbose") — test fixture.
+                    // swiftlint:disable:next force_try
                     short: try! .init("v"),
+                    // swiftlint:disable:next force_try
                     long: try! .init("verbose")
                 )
                 #expect(name.short?.character == "v")
