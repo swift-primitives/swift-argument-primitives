@@ -27,7 +27,9 @@ extension Argument.Schema {
     /// at build time) override `Failure` to a domain-specific
     /// `Swift.Error`.
     public protocol Visitor {
-        /// The error this visitor surfaces. Defaults to `Never`.
+        /// The error this visitor surfaces.
+        ///
+        /// Defaults to `Never`.
         associatedtype Failure: Swift.Error = Never
 
         /// Visit a positional argument declaration.
